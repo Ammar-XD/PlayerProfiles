@@ -4,6 +4,7 @@ import com.muhammaddaffa.playerprofiles.ConfigValue;
 import com.muhammaddaffa.playerprofiles.PlayerProfiles;
 import com.muhammaddaffa.playerprofiles.configs.ConfigManager;
 import com.muhammaddaffa.playerprofiles.inventory.InventoryManager;
+import com.muhammaddaffa.playerprofiles.utils.CheckWorld;
 import me.aglerr.mclibs.libs.Common;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
@@ -57,6 +58,8 @@ public class ProfileCommand implements CommandExecutor, TabCompleter {
         }
         // Get the player object from the sender
         Player player = (Player) sender;
+        // Return if the world is not Spawn
+        new CheckWorld().checkWorld(player);
         // Get the InventoryManager
         InventoryManager inventoryManager = plugin.getInventoryManager();
         // Check if args length is 0 (/profile)

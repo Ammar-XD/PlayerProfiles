@@ -55,21 +55,6 @@
             <artifactId>api</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>worldguard6</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>worldguard7</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>worldguard-wrapper</artifactId>
-            <version>${project.version}</version>
-        </dependency>
     </dependencies>
 
 </project>

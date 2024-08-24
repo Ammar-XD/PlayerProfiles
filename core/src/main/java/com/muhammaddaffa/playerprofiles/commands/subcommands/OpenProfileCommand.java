@@ -3,6 +3,7 @@ package com.muhammaddaffa.playerprofiles.commands.subcommands;
 import com.muhammaddaffa.playerprofiles.ConfigValue;
 import com.muhammaddaffa.playerprofiles.PlayerProfiles;
 import com.muhammaddaffa.playerprofiles.commands.abstraction.SubCommand;
+import com.muhammaddaffa.playerprofiles.utils.CheckWorld;
 import me.aglerr.mclibs.libs.Common;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -34,6 +35,8 @@ public class OpenProfileCommand extends SubCommand {
 
     @Override
     public void execute(PlayerProfiles plugin, CommandSender sender, String[] args) {
+        Player checkPlayer = (Player) sender;
+        new CheckWorld().checkWorld(checkPlayer);
         // The full command is /playerprofiles openprofile (target) (for-player) - args length = 3
         // So we want to tell the command sender if the the args doesn't enough
         if(args.length < 3){

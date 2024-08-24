@@ -2,13 +2,12 @@ package com.muhammaddaffa.playerprofiles.listeners;
 
 import com.muhammaddaffa.playerprofiles.ConfigValue;
 import com.muhammaddaffa.playerprofiles.PlayerProfiles;
-import com.muhammaddaffa.playerprofiles.hooks.combatlogx.HCombatLogX;
-import com.muhammaddaffa.playerprofiles.hooks.deluxecombat.HDeluxeCombat;
+
 import com.muhammaddaffa.playerprofiles.inventory.InventoryManager;
 import com.muhammaddaffa.playerprofiles.manager.DependencyManager;
 import com.muhammaddaffa.playerprofiles.manager.profile.ProfileManager;
+import com.muhammaddaffa.playerprofiles.utils.CheckWorld;
 import com.muhammaddaffa.playerprofiles.utils.Utils;
-import com.muhammaddaffa.playerprofiles.worldguardwrapper.WorldGuardWrapper;
 import me.aglerr.mclibs.libs.Common;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -31,10 +30,19 @@ public class PlayerInteract implements Listener {
 
     @EventHandler
     public void onPlayerRightClickEntity(PlayerInteractAtEntityEvent event){
+
+
+
+
+
         // First of all we want to return the code if the right clicked entity is not player
         if(!(event.getRightClicked() instanceof Player)) return;
+
         // Get the player object from this event
         Player player = event.getPlayer();
+
+        // Check if the player is in the world called world
+        new CheckWorld().checkWorld(player);
         // We check if the server is 1.9+, means they have off hand
         // This event will be fired twice for both main hand and off hand
         // So we want to stop the code if the interact hand is an off hand
@@ -83,57 +91,6 @@ public class PlayerInteract implements Listener {
                         .replace("{time}", timeLeft + "")));
                 // Stop the code
                 return;
-            }
-        }
-        // Check for the disabled worlds, if the player is in disabled worlds
-        // they can't open others profile
-        if(ConfigValue.DISABLED_WORLDS.contains(player.getWorld().getName())){
-            player.sendMessage(Common.color(ConfigValue.DISABLED_WORLD_MESSAGE
-                    .replace("{prefix}", ConfigValue.PREFIX)));
-            return;
-        }
-        // Check for the world guard regions, if the player or the target is inside the disabled
-        // regions, the player cannot open the profile
-        // First of all, check if the world guard is enabled
-        if(DependencyManager.WORLD_GUARD){
-            // First, we check for the player location, if the region is listed on the disabled regions
-            // we stopped the code
-            for(String region : WorldGuardWrapper.getInstance().getRegionFinder().getRegions(player.getLocation())){
-                if(ConfigValue.DISABLED_REGIONS.contains(region)){
-                    player.sendMessage(Common.color(ConfigValue.PLAYER_DISABLED_REGIONS
-                            .replace("{prefix}", ConfigValue.PREFIX)));
-                    return;
-                }
-            }
-            // Now, we check for the target location
-            for(String region : WorldGuardWrapper.getInstance().getRegionFinder().getRegions(target.getLocation())){
-                if(ConfigValue.DISABLED_REGIONS.contains(region)){
-                    player.sendMessage(Common.color(ConfigValue.TARGET_DISABLED_REGIONS
-                            .replace("{prefix}", ConfigValue.PREFIX)));
-                    return;
-                }
-            }
-        }
-        // Now we check for the combat part, this feature is to prevent player from
-        // opening profiles while on combat (Require: CombatLogX or DeluxeCombat)
-        if(ConfigValue.DISABLE_IN_COMBAT_ENABLED){
-            // Check if CombatLogX is enabled
-            if(DependencyManager.COMBAT_LOG_X){
-                // Check if the player is in combat, if true we return the code
-                if(HCombatLogX.isInCombat(player)){
-                    player.sendMessage(Common.color(ConfigValue.DISABLE_IN_COMBAT_MESSAGE
-                            .replace("{prefix}", ConfigValue.PREFIX)));
-                    return;
-                }
-            }
-            // Check if DeluxeCombat is enabled
-            if(DependencyManager.DELUXE_COMBAT){
-                // Check if the player is in combat, if true we return the code
-                if(HDeluxeCombat.isInCombat(player)){
-                    player.sendMessage(Common.color(ConfigValue.DISABLE_IN_COMBAT_MESSAGE
-                            .replace("{prefix}", ConfigValue.PREFIX)));
-                    return;
-                }
             }
         }
         // Now this feature is a interact cooldown message, that means player cannot

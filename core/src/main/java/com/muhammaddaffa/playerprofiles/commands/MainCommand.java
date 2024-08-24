@@ -8,10 +8,12 @@ import com.muhammaddaffa.playerprofiles.commands.subcommands.OpenGUICommand;
 import com.muhammaddaffa.playerprofiles.commands.subcommands.OpenProfileCommand;
 import com.muhammaddaffa.playerprofiles.commands.subcommands.ReloadCommand;
 import com.muhammaddaffa.playerprofiles.configs.ConfigManager;
+import com.muhammaddaffa.playerprofiles.utils.CheckWorld;
 import me.aglerr.mclibs.libs.Common;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Field;
@@ -66,6 +68,9 @@ public class MainCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
 
+        Player player = (Player) sender;
+        // Check world first
+        new CheckWorld().checkWorld(player);
         // Return if the args length is 0 and send help messages
         if(args.length == 0){
             this.sendHelpMessages(sender);

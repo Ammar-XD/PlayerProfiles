@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="EntryPointsManager">
     <list size="1">
@@ -16,6 +17,9 @@
         <option value="$PROJECT_DIR$/WG6/pom.xml" />
         <option value="$PROJECT_DIR$/WG7/pom.xml" />
         <option value="$PROJECT_DIR$/wg-wrapper/pom.xml" />
+        <option value="$PROJECT_DIR$/worldguard-wrapper/pom.xml" />
+        <option value="$PROJECT_DIR$/worldguard6/pom.xml" />
+        <option value="$PROJECT_DIR$/worldguard7/pom.xml" />
       </set>
     </option>
   </component>
